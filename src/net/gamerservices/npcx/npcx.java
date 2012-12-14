@@ -13,7 +13,7 @@ import java.util.HashMap;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.BlockIterator;
-import org.bukkit.event.player.PlayerChatEvent;
+
 import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandException;
@@ -32,7 +32,7 @@ import org.bukkit.World;
 import org.bukkit.event.*;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.entity.CreatureType;
+
 
 import java.util.ConcurrentModificationException;
 import java.util.List;
@@ -45,10 +45,9 @@ import org.bukkit.event.Event.Type;
 import java.util.logging.Logger;
 import org.bukkit.event.Event.Priority;
 
-import com.nijiko.permissions.PermissionHandler;
-import com.nijikokun.bukkit.Permissions.*;
 
-import com.iConomy.*;
+
+import com.iCo6.*;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -63,7 +62,8 @@ public class npcx extends JavaPlugin {
 
     private final Logger logger = Logger.getLogger("Minecraft");
 
-    private PermissionHandler Permissions = null;
+    private PermissionsHandler Permissions = null;
+    
 
     private npcxEListener mEntityListener;
     private npcxPListener mPlayerListener;
@@ -77,8 +77,6 @@ public class npcx extends JavaPlugin {
     boolean useiConomy;
     private Server Server = null;
 
-    public static Permissions perms;
-
     public BasicHumanNpcList npclist = new BasicHumanNpcList();
     private Timer tick = new Timer();
     private Timer longtick = new Timer();
@@ -86,6 +84,7 @@ public class npcx extends JavaPlugin {
     public boolean checkchunks = false;
 
     public void onNPCDeathWithLoot(BasicHumanNpc npc) {
+    	
 
         for (myLoottable lt : this.universe.loottables) {
             if (npc.parent != null) {
@@ -2515,7 +2514,7 @@ public class npcx extends JavaPlugin {
 
         if (this.Permissions == null) {
             if (test != null) {
-                this.Permissions = ((Permissions) test).getHandler();
+                this.Permissions = new PermissionsHandler();
             } else {
                 this.logger.info("Permission system not detected, defaulting to OP");
             }
