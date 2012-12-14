@@ -9,8 +9,8 @@ import net.gamerservices.npclibfork.BasicHumanNpc;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-import com.iConomy.iConomy;
-import com.iConomy.system.Account;
+import com.iCo6.system.Account;
+import com.iCo6.system.Accounts;
 
 public class myPlayer {
 
@@ -27,20 +27,23 @@ public class myPlayer {
     public boolean toggle = true;
     public boolean respawned = true;
     public int id;
+    private Accounts accounts;
+    
 
-    myPlayer(npcx parent, Player player, String name) {
+    public myPlayer(npcx parent, Player player, String name) {
         this.parent = parent;
         this.player = player;
         this.name = name;
+        this.accounts = new Accounts();
     }
 
-    public int getPlayerBalance(Player player) {
+    public double getPlayerBalance(Player player) {
     	
     	try
     	{
-        if (parent.useiConomy && iConomy.getAccount(player.getName()) != null) {
-            return (int) iConomy.getAccount(player.getName()).getHoldings().balance();
-        }
+    		if (parent.useiConomy && this.accounts.get(player.getName()) != null) {
+    			return this.accounts.get(player.getName()).getHoldings().getBalance();
+    		}
     	} catch (NoClassDefFoundError err)
     	{
     		return this.getNPCXBalance();
@@ -50,7 +53,7 @@ public class myPlayer {
 
     public void subtractPlayerBalance(Player player, int totalcost) {
         try {
-            Account account = iConomy.getAccount(player.getName());
+            Account account = this.accounts.get(player.getName());
             if (account != null && parent.useiConomy) {
                 account.getHoldings().subtract(totalcost);
             } else {
@@ -63,7 +66,7 @@ public class myPlayer {
 
     public void addPlayerBalance(Player player, int totalcost) {
         try {
-            Account account = iConomy.getAccount(player.getName());
+            Account account = this.accounts.get(player.getName());
             if (account != null && parent.useiConomy) {
                 account.getHoldings().add(totalcost);
             } else {
@@ -78,7 +81,7 @@ public class myPlayer {
     public boolean hasPlayerEnoughPlayerBalance(Player player, float totalcost) {
         try {
             if (parent.useiConomy) {
-                Account account = iConomy.getAccount(player.getName());
+                Account account = this.accounts.get(player.getName());
                 return account.getHoldings().hasEnough(totalcost);
             } else {
                 if (this.getNPCXBalance() >= totalcost) {

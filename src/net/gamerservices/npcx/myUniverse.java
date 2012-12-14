@@ -25,8 +25,6 @@ import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginDescriptionFile;
 
-import com.iConomy.iConomy;
-import com.iConomy.system.Account;
 
 public class myUniverse {
     npcx parent;
