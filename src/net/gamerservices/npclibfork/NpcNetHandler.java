@@ -44,7 +44,6 @@ public class NpcNetHandler extends NetServerHandler {
     public void a(String s, Object[] aobject) {
     }
 
-    @Override
     public void a(Packet packet) {
     }
 
@@ -72,7 +71,6 @@ public class NpcNetHandler extends NetServerHandler {
     public void a(Packet255KickDisconnect packet255kickdisconnect) {
     }
 
-    @Override
     public int b() {
         return 0;
     }
@@ -94,7 +92,6 @@ public class NpcNetHandler extends NetServerHandler {
     public void a(Packet9Respawn packet9respawn) {
     }
 
-    @Override
     public void a(Packet101CloseWindow packet101closewindow) {
     }
 

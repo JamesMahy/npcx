@@ -4,17 +4,17 @@ import org.bukkit.plugin.Plugin;
 
 import net.gamerservices.npclibfork.BasicHumanNpc;
 import net.gamerservices.npclibfork.BasicHumanNpcList;
-import net.gamerservices.npclibfork.NpcEntityTargetEvent;
+
 import net.gamerservices.npclibfork.NpcSpawner;
-import net.gamerservices.npclibfork.NpcEntityTargetEvent.NpcTargetReason;
+
 
 import org.bukkit.plugin.PluginManager;
-import java.util.HashMap;
+
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.util.BlockIterator;
 
-import org.bukkit.block.Block;
+
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandException;
 import org.bukkit.command.CommandSender;
@@ -23,27 +23,25 @@ import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Zombie;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Server;
 import org.bukkit.World;
-import org.bukkit.event.*;
-import org.bukkit.Material;
+
 import org.bukkit.inventory.ItemStack;
 
 
 import java.util.ConcurrentModificationException;
-import java.util.List;
-import java.util.Properties;
+
 import java.util.Random;
 import java.util.Timer;
-import java.util.concurrent.CopyOnWriteArrayList;
+
 import java.util.logging.Level;
-import org.bukkit.event.Event.Type;
+
 import java.util.logging.Logger;
-import org.bukkit.event.Event.Priority;
+
 
 
 
@@ -707,7 +705,7 @@ public class npcx extends JavaPlugin {
 
                 if (subCommand.equals("balance")) {
                     myPlayer player2 = this.universe.getmyPlayer(player);
-                    int balance = player2.getPlayerBalance(player);
+                    double balance = player2.getPlayerBalance(player);
                     player.sendMessage("* Your balance is: " + balance);
                 }
 
@@ -732,7 +730,7 @@ public class npcx extends JavaPlugin {
                         myPlayer recipient = this.universe.getmyPlayer(args[1]);
 
                         if (recipient != null && me != null && recipient.player != null && me.player != null) {
-                            int balanceme = me.getPlayerBalance(me.player);
+                            double balanceme = me.getPlayerBalance(me.player);
 
                             if (balanceme >= amount) {
                                 // Change accounts
