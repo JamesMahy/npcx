@@ -521,29 +521,12 @@ public class npcx extends JavaPlugin {
             mWorldListener = new npcxWListener(this);
             mBlockListener = new npcxBListener(this);
             mServerListener = new npcxSListener(this);
-
-            pm.registerEvent(Type.CHUNK_LOAD, mWorldListener, Priority.Normal, this);
-            pm.registerEvent(Type.CHUNK_UNLOAD, mWorldListener, Priority.Normal, this);
-            pm.registerEvent(Type.PLAYER_MOVE, mPlayerListener, Priority.Normal, this);
-            pm.registerEvent(Type.ENTITY_TARGET, mEntityListener, Priority.Normal, this);
-            pm.registerEvent(Type.ENTITY_DAMAGE, mEntityListener, Priority.Normal, this);
-            pm.registerEvent(Type.ENTITY_EXPLODE, mEntityListener, Priority.Normal, this);
-
-            pm.registerEvent(Type.ENTITY_DEATH, mEntityListener, Priority.Normal, this);
-            pm.registerEvent(Type.CREATURE_SPAWN, mEntityListener, Priority.Normal, this);
-            pm.registerEvent(Type.BLOCK_IGNITE, mBlockListener, Priority.Normal, this);
-
-            pm.registerEvent(Type.PLAYER_RESPAWN, mPlayerListener, Priority.Normal, this);
-            pm.registerEvent(Type.PLAYER_INTERACT, mPlayerListener, Priority.Normal, this);
-            pm.registerEvent(Type.PLAYER_TELEPORT, mPlayerListener, Priority.Normal, this);
-
-            pm.registerEvent(Type.PLAYER_JOIN, mPlayerListener, Priority.Normal, this);
-            pm.registerEvent(Type.PLAYER_QUIT, mPlayerListener, Priority.Normal, this);
-
-            pm.registerEvent(Type.PLAYER_CHAT, mPlayerListener, Priority.Normal, this);
-
-            pm.registerEvent(Type.PLUGIN_ENABLE, mServerListener, Priority.Monitor, this);
-            pm.registerEvent(Type.PLUGIN_DISABLE, mServerListener, Priority.Monitor, this);
+            
+            
+            pm.registerEvents(mWorldListener,this);
+            pm.registerEvents(mPlayerListener,this);
+            pm.registerEvents(mEntityListener,this);
+            pm.registerEvents(mServerListener,this);
 
             return true;
         } catch (NoSuchFieldError e) {

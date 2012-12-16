@@ -1,20 +1,22 @@
 package net.gamerservices.npcx;
 
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
 import org.bukkit.event.server.PluginEnableEvent;
 import org.bukkit.event.server.PluginDisableEvent;
-import org.bukkit.event.server.ServerListener;
 import org.bukkit.plugin.Plugin;
 
-import com.iConomy.iConomy;
+import com.iCo6.*;
 
-public class npcxSListener extends ServerListener {
+public class npcxSListener implements Listener {
     private npcx parent;
 
     public npcxSListener(npcx parent) {
         this.parent = parent;
     }
 
-    @Override
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onPluginEnable(PluginEnableEvent event) {
         if (parent.iConomy == null && parent.useiConomy) {
             Plugin iConomy = parent.getServer().getPluginManager().getPlugin("iConomy");
@@ -28,7 +30,7 @@ public class npcxSListener extends ServerListener {
         }
     }
 
-    @Override
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onPluginDisable(PluginDisableEvent event) {
         if (parent.iConomy != null && parent.useiConomy) {
             if (event.getPlugin().getDescription().getName().equals("iConomy")) {

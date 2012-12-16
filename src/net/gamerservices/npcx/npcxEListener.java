@@ -1,25 +1,20 @@
 package net.gamerservices.npcx;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Logger;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 
 import net.gamerservices.npclibfork.BasicHumanNpc;
 import net.gamerservices.npclibfork.NpcEntityTargetEvent;
-import net.gamerservices.npclibfork.NpcSpawner;
 import net.gamerservices.npclibfork.NpcEntityTargetEvent.NpcTargetReason;
 
-import org.bukkit.craftbukkit.CraftServer;
+
 import org.bukkit.event.entity.*;
-import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.HumanEntity;
-import org.bukkit.entity.Zombie;
 
-public class npcxEListener extends EntityListener {
+
+public class npcxEListener implements Listener {
 
     private final npcx parent;
 
@@ -27,7 +22,7 @@ public class npcxEListener extends EntityListener {
         this.parent = parent;
     }
 
-    @Override
+    @EventHandler
     public void onEntityDamage(EntityDamageEvent event) {
         if (event.isCancelled()) { return; }
         if (event.getEntity() instanceof HumanEntity) {
@@ -41,7 +36,7 @@ public class npcxEListener extends EntityListener {
         }
     }
 
-    @Override
+    @EventHandler
     public void onEntityDeath(EntityDeathEvent event) {
 
         if (event.getEntity() instanceof Monster) {
@@ -52,7 +47,7 @@ public class npcxEListener extends EntityListener {
         }
     }
 
-    @Override
+    @EventHandler
     public void onEntityExplode(EntityExplodeEvent event) {
         if (event.isCancelled()) { return; }
 
@@ -73,7 +68,7 @@ public class npcxEListener extends EntityListener {
 
     }
 
-    @Override
+    @EventHandler
     public void onCreatureSpawn(CreatureSpawnEvent event) {
         if (event.isCancelled()) { return; }
         if (event.getEntity() instanceof Monster) {
@@ -82,7 +77,7 @@ public class npcxEListener extends EntityListener {
         }
     }
 
-    @Override
+    @EventHandler
     public void onEntityTarget(EntityTargetEvent event) {
 
         if (event.isCancelled()) { return; }

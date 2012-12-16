@@ -1,33 +1,25 @@
 package net.gamerservices.npcx;
 
-import java.util.logging.Logger;
 
-import net.gamerservices.npclibfork.BasicHumanNpc;
-import net.gamerservices.npclibfork.NpcEntityTargetEvent;
-import net.gamerservices.npclibfork.NpcSpawner;
-import net.gamerservices.npclibfork.NpcEntityTargetEvent.NpcTargetReason;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.CraftServer;
-import org.bukkit.event.block.Action;
-import org.bukkit.event.entity.*;
-import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
+
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChatEvent;
-import org.bukkit.event.player.PlayerEvent;
+
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerListener;
-import org.bukkit.event.player.PlayerLoginEvent;
+
+
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
-import org.bukkit.entity.Player;
-import org.bukkit.entity.HumanEntity;
 
-public class npcxPListener extends PlayerListener {
+public class npcxPListener implements Listener {
 
     private final npcx parent;
 
@@ -35,6 +27,7 @@ public class npcxPListener extends PlayerListener {
         this.parent = parent;
     }
 
+    @EventHandler
     public void onPlayerMove(PlayerMoveEvent event) {
         if (event.isCancelled()) { return; }
         if (this.parent.universe.nations.matches("true")) {

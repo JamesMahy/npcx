@@ -24,8 +24,7 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import com.iConomy.iConomy;
-import com.iConomy.system.Account;
+import com.iCo6.system.Account;
 
 public class myNPC {
     public npcx parent;
@@ -881,7 +880,7 @@ public class myNPC {
 
         myPlayer mp = this.parent.universe.getmyPlayer(player);
 
-        int balance = 0;
+        Double balance = 0.00;
         if (mp != null) {
             balance = mp.getPlayerBalance(player);
         } else {
@@ -905,11 +904,11 @@ public class myNPC {
         }
 
         if (response.contains("bankbalance")) {
-            response = response.replaceAll("bankbalance", ChatColor.YELLOW + Integer.toString(balance) + ChatColor.WHITE);
+            response = response.replaceAll("bankbalance", ChatColor.YELLOW + String.valueOf(balance) + ChatColor.WHITE);
         }
 
         if (response.contains("playerbalance")) {
-            response = response.replaceAll("playerbalance", ChatColor.YELLOW + Integer.toString(balance) + ChatColor.WHITE);
+            response = response.replaceAll("playerbalance", ChatColor.YELLOW + String.valueOf(balance) + ChatColor.WHITE);
         }
 
         if (response.contains("playerhealth")) {

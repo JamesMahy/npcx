@@ -2,20 +2,23 @@ package net.gamerservices.npcx;
 
 import java.util.HashMap;
 
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.world.ChunkLoadEvent;
 import org.bukkit.event.world.ChunkUnloadEvent;
-import org.bukkit.event.world.WorldListener;
+
 
 // Citizens Mod: http://forums.bukkit.org/threads/7173/
 
-public class npcxWListener extends WorldListener {
+public class npcxWListener implements Listener {
     private npcx parent;
-
+    
+    
     public npcxWListener(npcx parent) {
         this.parent = parent;
     }
 
-    @Override
+    @EventHandler
     public void onChunkUnload(ChunkUnloadEvent e) {
         parent.deregisterChunk(e.getChunk());
         try {
@@ -35,7 +38,7 @@ public class npcxWListener extends WorldListener {
         }
     }
 
-    @Override
+    @EventHandler
     public void onChunkLoad(ChunkLoadEvent e) {
 
         parent.registerChunk(e.getChunk());
