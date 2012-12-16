@@ -139,7 +139,7 @@ public class npcxPListener implements Listener {
         if (this.parent.universe.nations != null) {
             if (this.parent.universe.nations.equals("true")) {
 
-                if (!this.parent.isAdmin(event.getPlayer())) {
+                if (!this.parent.this.security.isAdmin(event.getPlayer())) {
                     if (this.parent.universe.nowild != null) {
                         if (this.parent.universe.nowild.matches("true")) {
                             try {

@@ -4,8 +4,10 @@ import java.sql.PreparedStatement;
 
 import org.bukkit.Chunk;
 
+import com.cevo.npcx.universe.Universe;
+
 public class myZone {
-    public myUniverse parent;
+    public Universe parent;
     public String name = "The Wild";
     public String ownername = "";
     public boolean wild = true;
@@ -14,7 +16,7 @@ public class myZone {
     public int z;
     public int id;
 
-    public myZone(myUniverse universe, int id, Chunk chunk, int x, int z) {
+    public myZone(Universe universe, int id, Chunk chunk, int x, int z) {
         this.id = id;
         this.parent = universe;
         this.chunk = chunk;

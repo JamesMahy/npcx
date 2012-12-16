@@ -1019,7 +1019,7 @@ public class myNPC {
 
                     }
 
-                    if (this.parent.isAdmin(p)) {
+                    if (this.parent.this.security.isAdmin(p)) {
                         p.sendMessage("NPCID (" + tNPCID + "):SG (" + tGPID + "):F (" + tFID + "):PG (" + tPGID + "):L (" + tLTID + "):M (" + tMID + ")");
                     }
                     p.sendMessage("* You are now chatting to: " + ChatColor.YELLOW + name + ChatColor.WHITE + ". Right Click to cancel.");
