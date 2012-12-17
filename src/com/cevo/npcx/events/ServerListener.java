@@ -1,4 +1,6 @@
-package net.gamerservices.npcx;
+package com.cevo.npcx.events;
+
+import net.gamerservices.npcx.npcx;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -9,21 +11,23 @@ import org.bukkit.plugin.Plugin;
 
 import com.iCo6.*;
 
-public class npcxSListener implements Listener {
+public class ServerListener implements Listener {
     private npcx parent;
-
-    public npcxSListener(npcx parent) {
+    private iConomy iconomy;
+    
+    public ServerListener(npcx parent) {
         this.parent = parent;
+        this.iconomy = this.parent.getiConomy();
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void onPluginEnable(PluginEnableEvent event) {
-        if (parent.iConomy == null && parent.useiConomy) {
+        if (this.iconomy == null && this.parent.useiConomy) {
             Plugin iConomy = parent.getServer().getPluginManager().getPlugin("iConomy");
 
             if (iConomy != null) {
                 if (iConomy.isEnabled() && iConomy.getClass().getName().equals("com.iConomy.iConomy")) {
-                    parent.iConomy = (iConomy) iConomy;
+                    this.iconomy = (iConomy) iConomy;
                     System.out.println("[npcx] hooked into iConomy.");
                 }
             }
@@ -32,9 +36,9 @@ public class npcxSListener implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void onPluginDisable(PluginDisableEvent event) {
-        if (parent.iConomy != null && parent.useiConomy) {
+        if (this.iconomy != null && parent.useiConomy) {
             if (event.getPlugin().getDescription().getName().equals("iConomy")) {
-                parent.iConomy = null;
+                this.iconomy = null;
                 System.out.println("[npcx] un-hooked from iConomy.");
             }
         }

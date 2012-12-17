@@ -101,7 +101,7 @@ public class myPlayer {
 
     public int getNPCXBalance() {
         try {
-            PreparedStatement stmtNPC = this.parent.universe.conn.prepareStatement("SELECT coin FROM player WHERE name = ? LIMIT 1;");
+            PreparedStatement stmtNPC = this.universe.conn.prepareStatement("SELECT coin FROM player WHERE name = ? LIMIT 1;");
             stmtNPC.setString(1, this.player.getName());
             stmtNPC.executeQuery();
             ResultSet rsNPC = stmtNPC.getResultSet();
@@ -121,7 +121,7 @@ public class myPlayer {
 
     public boolean setNPCXBalance(int amount) {
         try {
-            PreparedStatement stmt = this.parent.universe.conn.prepareStatement("INSERT INTO player (coin,name) VALUES (?,?) ON DUPLICATE KEY UPDATE coin=VALUES(coin) ", Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement stmt = this.universe.conn.prepareStatement("INSERT INTO player (coin,name) VALUES (?,?) ON DUPLICATE KEY UPDATE coin=VALUES(coin) ", Statement.RETURN_GENERATED_KEYS);
             stmt.setInt(1, amount);
             stmt.setString(2, this.player.getName());
 
@@ -144,7 +144,7 @@ public class myPlayer {
 
     public boolean updateFactionNegative(myFaction faction) {
         try {
-            for (myPlayer_factionentry f : this.parent.universe.playerfactions.values()) {
+            for (myPlayer_factionentry f : this.universe.playerfactions.values()) {
                 if (f.factionid == faction.id && f.playername.equals(this.player.getName())) {
                     f.amount = f.amount - 1;
                     return true;
@@ -155,7 +155,7 @@ public class myPlayer {
             myPlayer_factionentry fe = createFactionEntry(faction.id, faction.name, this.player.getName(), -1);
 
             if (fe != null) {
-                this.parent.universe.playerfactions.put(Integer.toString(fe.id), fe);
+                this.universe.playerfactions.put(Integer.toString(fe.id), fe);
                 return true;
             } else {
                 // didn't find an entry
@@ -169,7 +169,7 @@ public class myPlayer {
 
     private myPlayer_factionentry createFactionEntry(int factionid, String factionname, String playername, int amount) {
         try {
-            PreparedStatement stmt = this.parent.universe.conn.prepareStatement("INSERT INTO player_faction (player_name,faction_id,amount) VALUES (?,?,?) ON DUPLICATE KEY UPDATE amount=amount+VALUES(amount) ", Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement stmt = this.universe.conn.prepareStatement("INSERT INTO player_faction (player_name,faction_id,amount) VALUES (?,?,?) ON DUPLICATE KEY UPDATE amount=amount+VALUES(amount) ", Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, this.player.getName());
             stmt.setInt(2, factionid);
             stmt.setInt(3, amount);
@@ -194,7 +194,7 @@ public class myPlayer {
 
     public int getPlayerFactionStandingWithBase(myFaction faction) {
         try {
-            for (myPlayer_factionentry e : this.parent.universe.playerfactions.values()) {
+            for (myPlayer_factionentry e : this.universe.playerfactions.values()) {
                 if (e.playername.equals(this.player.getName()) && e.factionid == faction.id) {
                     if (e.factionid == faction.id) { return e.amount + faction.base; }
                 }
@@ -210,7 +210,7 @@ public class myPlayer {
     }
 
     public void updateFactionPositive(myPlayer player, myNPC npc) {
-        for (myFactionEntry n : this.parent.universe.factionentries.values()) {
+        for (myFactionEntry n : this.universe.factionentries.values()) {
             if (n.targetfactionid == npc.faction.id) {
                 if (n.amount < 0) {
                     // found a faction that hates this npcs faction, lets give
@@ -219,7 +219,7 @@ public class myPlayer {
 
                     try {
                         int count = 0;
-                        for (myPlayer_factionentry f : this.parent.universe.playerfactions.values()) {
+                        for (myPlayer_factionentry f : this.universe.playerfactions.values()) {
                             if (f.factionid == n.factionid && f.playername.equals(this.player.getName())) {
                                 f.amount = f.amount + 1;
                                 player.player.sendMessage(ChatColor.YELLOW + "* Your standing with " + faction.name + " has gotten better!");
@@ -234,7 +234,7 @@ public class myPlayer {
                             if (fe != null) {
                                 // created entry
                                 count++;
-                                this.parent.universe.playerfactions.put(Integer.toString(fe.id), fe);
+                                this.universe.playerfactions.put(Integer.toString(fe.id), fe);
                                 player.player.sendMessage(ChatColor.YELLOW + "* Your standing with " + faction.name + " has gotten better!");
                             } else {
                                 // didn't find an entry

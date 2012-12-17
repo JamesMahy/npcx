@@ -1,4 +1,4 @@
-package net.gamerservices.npcx;
+package com.cevo.npcx.events;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -6,6 +6,7 @@ import org.bukkit.event.Listener;
 import net.gamerservices.npclibfork.BasicHumanNpc;
 import net.gamerservices.npclibfork.NpcEntityTargetEvent;
 import net.gamerservices.npclibfork.NpcEntityTargetEvent.NpcTargetReason;
+import net.gamerservices.npcx.npcx;
 
 
 import org.bukkit.event.entity.*;
@@ -14,12 +15,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.HumanEntity;
 
 
-public class npcxEListener implements Listener {
+public class EntityListener implements Listener {
 
     private final npcx parent;
+    private Universe universe;
 
-    public npcxEListener(npcx parent) {
+    public EntityListener(npcx parent) {
         this.parent = parent;
+        this.universe = this.parent.getUniverse();
     }
 
     @EventHandler
@@ -42,7 +45,7 @@ public class npcxEListener implements Listener {
         if (event.getEntity() instanceof Monster) {
 
             // System.out.println("npcx : deregistered monster");
-            this.parent.universe.monsters.remove((Monster) event.getEntity());
+            this.universe.monsters.remove((Monster) event.getEntity());
 
         }
     }
@@ -55,12 +58,12 @@ public class npcxEListener implements Listener {
 
             // System.out.println("npcx : deregistered monster");
 
-            this.parent.universe.monsters.remove((Monster) event.getEntity());
+            this.universe.monsters.remove((Monster) event.getEntity());
 
         }
-        if (this.parent.universe.nocreeper != null) {
+        if (this.universe.nocreeper != null) {
             // creeper protection is on
-            if (this.parent.universe.nocreeper.matches("true")) {
+            if (this.universe.nocreeper.matches("true")) {
                 // creeper events are bad
                 event.setCancelled(true);
             }
@@ -73,7 +76,7 @@ public class npcxEListener implements Listener {
         if (event.isCancelled()) { return; }
         if (event.getEntity() instanceof Monster) {
             // System.out.println("npcx : registered monster");
-            this.parent.universe.monsters.add((Monster) event.getEntity());
+            this.universe.monsters.add((Monster) event.getEntity());
         }
     }
 

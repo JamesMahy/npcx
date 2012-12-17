@@ -1,6 +1,10 @@
-package net.gamerservices.npcx;
+package com.cevo.npcx.events;
 
 
+
+import net.gamerservices.npcx.myPlayer;
+import net.gamerservices.npcx.myZone;
+import net.gamerservices.npcx.npcx;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Chunk;
@@ -19,39 +23,41 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
-public class npcxPListener implements Listener {
+public class PlayerListener implements Listener {
 
     private final npcx parent;
+    private Universe universe;
 
-    public npcxPListener(npcx parent) {
+    public PlayerListener(npcx parent) {
         this.parent = parent;
+        this.universe = this.parent.getUniverse();
     }
 
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent event) {
         if (event.isCancelled()) { return; }
-        if (this.parent.universe.nations.matches("true")) {
+        if (this.universe.nations.matches("true")) {
 
             // natiosn chunk checking
             // Area Coordinate = round down ( ( position / areasize ) + 0.9375 )
-            int xchunkloc = this.parent.universe.getZoneCoord(event.getPlayer().getLocation().getX());
-            int zchunkloc = this.parent.universe.getZoneCoord(event.getPlayer().getLocation().getZ());
+            int xchunkloc = this.universe.getZoneCoord(event.getPlayer().getLocation().getX());
+            int zchunkloc = this.universe.getZoneCoord(event.getPlayer().getLocation().getZ());
             // event.getPlayer().sendMessage(xchunkloc+":"+zchunkloc);
 
-            int lastx = this.parent.universe.getPlayerLastChunkX(event.getPlayer());
-            int lastz = this.parent.universe.getPlayerLastChunkZ(event.getPlayer());
-            String lastname = this.parent.universe.getPlayerLastChunkName(event.getPlayer());
+            int lastx = this.universe.getPlayerLastChunkX(event.getPlayer());
+            int lastz = this.universe.getPlayerLastChunkZ(event.getPlayer());
+            String lastname = this.universe.getPlayerLastChunkName(event.getPlayer());
             // event.getPlayer().sendMessage("Zone: "+xchunkloc+":"+zchunkloc+" - from:"+
             // lastx + ":" + lastz);
             if (lastx != xchunkloc || lastz != zchunkloc) {
                 // new position!
                 int x = xchunkloc;
                 int z = zchunkloc;
-                myZone zone = this.parent.universe.getZoneFromLoc(x, z, event.getPlayer().getWorld());
+                myZone zone = this.universe.getZoneFromLoc(x, z, event.getPlayer().getWorld());
                 if (zone != null) {
                     if (lastname != null) {
                         if (!zone.name.equals(lastname)) {
-                            if (this.parent.universe.getPlayerToggle(event.getPlayer()).equals("true")) {
+                            if (this.universe.getPlayerToggle(event.getPlayer()).equals("true")) {
 
                                 if (zone.ownername.equals("")) {
                                     event.getPlayer().sendMessage("Zone: [" + ChatColor.LIGHT_PURPLE + "" + xchunkloc + ":" + zchunkloc + "" + ChatColor.WHITE + "] - " + ChatColor.YELLOW + "for sale" + " toggle with /civ");
@@ -61,21 +67,21 @@ public class npcxPListener implements Listener {
                                 }
 
                             }
-                            this.parent.universe.setPlayerLastChunkX(event.getPlayer(), xchunkloc);
-                            this.parent.universe.setPlayerLastChunkZ(event.getPlayer(), zchunkloc);
-                            this.parent.universe.setPlayerLastChunkName(event.getPlayer(), zone.name);
+                            this.universe.setPlayerLastChunkX(event.getPlayer(), xchunkloc);
+                            this.universe.setPlayerLastChunkZ(event.getPlayer(), zchunkloc);
+                            this.universe.setPlayerLastChunkName(event.getPlayer(), zone.name);
 
                         } else {
                             // skip we've been here recently
-                            this.parent.universe.setPlayerLastChunkX(event.getPlayer(), xchunkloc);
-                            this.parent.universe.setPlayerLastChunkZ(event.getPlayer(), zchunkloc);
-                            this.parent.universe.setPlayerLastChunkName(event.getPlayer(), zone.name);
+                            this.universe.setPlayerLastChunkX(event.getPlayer(), xchunkloc);
+                            this.universe.setPlayerLastChunkZ(event.getPlayer(), zchunkloc);
+                            this.universe.setPlayerLastChunkName(event.getPlayer(), zone.name);
                         }
                     } else {
                         // dont provide them info, just update them
-                        this.parent.universe.setPlayerLastChunkX(event.getPlayer(), xchunkloc);
-                        this.parent.universe.setPlayerLastChunkZ(event.getPlayer(), zchunkloc);
-                        this.parent.universe.setPlayerLastChunkName(event.getPlayer(), zone.name);
+                        this.universe.setPlayerLastChunkX(event.getPlayer(), xchunkloc);
+                        this.universe.setPlayerLastChunkZ(event.getPlayer(), zchunkloc);
+                        this.universe.setPlayerLastChunkName(event.getPlayer(), zone.name);
                     }
                 }
             } else {
@@ -86,24 +92,24 @@ public class npcxPListener implements Listener {
 
     public void onPlayerTeleport(PlayerTeleportEvent event) {
         if (event.isCancelled()) { return; }
-        if (this.parent.universe.nations.matches("true")) {
+        if (this.universe.nations.matches("true")) {
 
             // natiosn chunk checking
             // Area Coordinate = round down ( ( position / areasize ) + 0.9375 )
-            int xchunkloc = this.parent.universe.getZoneCoord(event.getPlayer().getLocation().getX());
-            int zchunkloc = this.parent.universe.getZoneCoord(event.getPlayer().getLocation().getZ());
+            int xchunkloc = this.universe.getZoneCoord(event.getPlayer().getLocation().getX());
+            int zchunkloc = this.universe.getZoneCoord(event.getPlayer().getLocation().getZ());
             // event.getPlayer().sendMessage(xchunkloc+":"+zchunkloc);
 
-            int lastx = this.parent.universe.getPlayerLastChunkX(event.getPlayer());
-            int lastz = this.parent.universe.getPlayerLastChunkZ(event.getPlayer());
-            String lastname = this.parent.universe.getPlayerLastChunkName(event.getPlayer());
+            int lastx = this.universe.getPlayerLastChunkX(event.getPlayer());
+            int lastz = this.universe.getPlayerLastChunkZ(event.getPlayer());
+            String lastname = this.universe.getPlayerLastChunkName(event.getPlayer());
             // event.getPlayer().sendMessage("Zone: "+xchunkloc+":"+zchunkloc+" - from:"+
             // lastx + ":" + lastz);
             if (lastx != xchunkloc || lastz != zchunkloc) {
                 // new position!
                 int x = xchunkloc;
                 int z = zchunkloc;
-                myZone zone = this.parent.universe.getZoneFromLoc(x, z, event.getPlayer().getWorld());
+                myZone zone = this.universe.getZoneFromLoc(x, z, event.getPlayer().getWorld());
                 if (zone != null) {
                     if (lastname != null) {
                         if (!zone.name.matches(lastname)) {
@@ -114,18 +120,18 @@ public class npcxPListener implements Listener {
                                 event.getPlayer().sendMessage("[" + ChatColor.LIGHT_PURPLE + "" + xchunkloc + ":" + zchunkloc + "" + ChatColor.WHITE + "] " + ChatColor.LIGHT_PURPLE + "" + zone.name + "" + ChatColor.WHITE + " Owner: " + ChatColor.YELLOW + "" + zone.ownername);
                             }
 
-                            this.parent.universe.setPlayerLastChunkX(event.getPlayer(), xchunkloc);
-                            this.parent.universe.setPlayerLastChunkZ(event.getPlayer(), zchunkloc);
-                            this.parent.universe.setPlayerLastChunkName(event.getPlayer(), zone.name);
+                            this.universe.setPlayerLastChunkX(event.getPlayer(), xchunkloc);
+                            this.universe.setPlayerLastChunkZ(event.getPlayer(), zchunkloc);
+                            this.universe.setPlayerLastChunkName(event.getPlayer(), zone.name);
 
                         } else {
                             // skip we've been here recently
                         }
                     } else {
                         // dont provide them info, just update them
-                        this.parent.universe.setPlayerLastChunkX(event.getPlayer(), xchunkloc);
-                        this.parent.universe.setPlayerLastChunkZ(event.getPlayer(), zchunkloc);
-                        this.parent.universe.setPlayerLastChunkName(event.getPlayer(), zone.name);
+                        this.universe.setPlayerLastChunkX(event.getPlayer(), xchunkloc);
+                        this.universe.setPlayerLastChunkZ(event.getPlayer(), zchunkloc);
+                        this.universe.setPlayerLastChunkName(event.getPlayer(), zone.name);
                     }
                 }
             } else {
@@ -136,23 +142,23 @@ public class npcxPListener implements Listener {
 
     public void onPlayerInteract(PlayerInteractEvent event) {
         if (event.isCancelled()) { return; }
-        if (this.parent.universe.nations != null) {
-            if (this.parent.universe.nations.equals("true")) {
+        if (this.universe.nations != null) {
+            if (this.universe.nations.equals("true")) {
 
                 if (!this.parent.this.security.isAdmin(event.getPlayer())) {
-                    if (this.parent.universe.nowild != null) {
-                        if (this.parent.universe.nowild.matches("true")) {
+                    if (this.universe.nowild != null) {
+                        if (this.universe.nowild.matches("true")) {
                             try {
-                                for (myPlayer player : parent.universe.players.values()) {
+                                for (myPlayer player : this.universe.players.values()) {
                                     if (player.player == event.getPlayer()) {
 
                                         Location loc = event.getClickedBlock().getLocation();
                                         Chunk chunk = loc.getWorld().getChunkAt(loc);
-                                        int x = this.parent.universe.getZoneCoord(event.getPlayer().getLocation().getX());
-                                        int z = this.parent.universe.getZoneCoord(event.getPlayer().getLocation().getZ());
+                                        int x = this.universe.getZoneCoord(event.getPlayer().getLocation().getX());
+                                        int z = this.universe.getZoneCoord(event.getPlayer().getLocation().getZ());
                                         String owner = "";
                                         int zoneid = 0;
-                                        for (myZone zone : this.parent.universe.zones) {
+                                        for (myZone zone : this.universe.zones) {
                                             if (zone.x == x && zone.z == z) {
                                                 owner = zone.ownername;
                                                 zoneid = zone.id;
@@ -164,7 +170,7 @@ public class npcxPListener implements Listener {
                                         } else {
                                             // Are they a member?
                                             if (zoneid != 0) {
-                                                if (this.parent.universe.isZoneMember(zoneid, event.getPlayer().getName())) { return; }
+                                                if (this.universe.isZoneMember(zoneid, event.getPlayer().getName())) { return; }
                                             }
                                             event.getPlayer().sendMessage(ChatColor.RED + "You are not in the wild or in an area you own (" + x + ":" + z + ")!");
                                             event.setCancelled(true);
@@ -181,17 +187,17 @@ public class npcxPListener implements Listener {
                             // using some other system
 
                             try {
-                                for (myPlayer player : parent.universe.players.values()) {
+                                for (myPlayer player : this.universe.players.values()) {
                                     if (player.player == event.getPlayer()) {
 
                                         Location loc = event.getClickedBlock().getLocation();
                                         Chunk chunk = loc.getWorld().getChunkAt(loc);
-                                        int x = this.parent.universe.getZoneCoord(event.getPlayer().getLocation().getX());
+                                        int x = this.universe.getZoneCoord(event.getPlayer().getLocation().getX());
                                         int zoneid = 0;
 
-                                        int z = this.parent.universe.getZoneCoord(event.getPlayer().getLocation().getZ());
+                                        int z = this.universe.getZoneCoord(event.getPlayer().getLocation().getZ());
                                         String owner = "";
-                                        for (myZone zone : this.parent.universe.zones) {
+                                        for (myZone zone : this.universe.zones) {
                                             if (zone.x == x && zone.z == z) {
                                                 owner = zone.ownername;
                                                 zoneid = zone.id;
@@ -208,7 +214,7 @@ public class npcxPListener implements Listener {
                                             } else {
                                                 // Are they a member?
                                                 if (zoneid != 0) {
-                                                    if (this.parent.universe.isZoneMember(zoneid, event.getPlayer().getName())) { return; }
+                                                    if (this.universe.isZoneMember(zoneid, event.getPlayer().getName())) { return; }
                                                 }
                                                 event.getPlayer().sendMessage(ChatColor.RED + "You are not in the wild or in an area you own (" + x + ":" + z + ")!");
                                                 event.setCancelled(true);
@@ -234,16 +240,16 @@ public class npcxPListener implements Listener {
                         // No setting NOWILD found, assume we dont want to
                         // protect or are using some other system
                         try {
-                            for (myPlayer player : parent.universe.players.values()) {
+                            for (myPlayer player : this.universe.players.values()) {
                                 if (player.player == event.getPlayer()) {
 
                                     Location loc = event.getClickedBlock().getLocation();
                                     Chunk chunk = loc.getWorld().getChunkAt(loc);
-                                    int x = this.parent.universe.getZoneCoord(event.getPlayer().getLocation().getX());
-                                    int z = this.parent.universe.getZoneCoord(event.getPlayer().getLocation().getZ());
+                                    int x = this.universe.getZoneCoord(event.getPlayer().getLocation().getX());
+                                    int z = this.universe.getZoneCoord(event.getPlayer().getLocation().getZ());
                                     String owner = "";
                                     int zoneid = 0;
-                                    for (myZone zone : this.parent.universe.zones) {
+                                    for (myZone zone : this.universe.zones) {
                                         if (zone.x == x && zone.z == z) {
                                             owner = zone.ownername;
                                             zoneid = zone.id;
@@ -259,7 +265,7 @@ public class npcxPListener implements Listener {
                                         } else {
                                             // Are they a member?
                                             if (zoneid != 0) {
-                                                if (this.parent.universe.isZoneMember(zoneid, event.getPlayer().getName())) {
+                                                if (this.universe.isZoneMember(zoneid, event.getPlayer().getName())) {
                                                     // member is ok
                                                     return;
                                                 }
@@ -306,7 +312,7 @@ public class npcxPListener implements Listener {
         myPlayer player = new myPlayer(this.parent, event.getPlayer(), event.getPlayer().getName());
 
         int count = 0;
-        for (myPlayer p : this.parent.universe.players.values()) {
+        for (myPlayer p : this.universe.players.values()) {
             // System.out.println("Testing " + p.name +
             // " against actual player: " + event.getPlayer().getName());
             if (p.name.equals(event.getPlayer().getName())) {
@@ -321,36 +327,36 @@ public class npcxPListener implements Listener {
         if (count == 0) {
             // System.out.println("npcx : added new player ("+
             // event.getPlayer().getName()+")");
-            parent.universe.players.put(player.name, player);
+            this.universe.players.put(player.name, player);
 
-            parent.universe.dbCreatePlayer(player);
+            this.universe.dbCreatePlayer(player);
 
         }
 
         // check nation stuff
 
-        if (this.parent.universe.nations.matches("true")) {
+        if (this.universe.nations.matches("true")) {
             // Area Coordinate = round down ( ( position / areasize ) + 0.9375 )
-            int xchunkloc = this.parent.universe.getZoneCoord(event.getPlayer().getLocation().getX());
-            int zchunkloc = this.parent.universe.getZoneCoord(event.getPlayer().getLocation().getZ());
+            int xchunkloc = this.universe.getZoneCoord(event.getPlayer().getLocation().getX());
+            int zchunkloc = this.universe.getZoneCoord(event.getPlayer().getLocation().getZ());
             // event.getPlayer().sendMessage(xchunkloc+":"+zchunkloc);
 
             // new position!
             int x = xchunkloc;
             int z = zchunkloc;
 
-            myZone zone = this.parent.universe.getZoneFromLoc(x, z, event.getPlayer().getWorld());
+            myZone zone = this.universe.getZoneFromLoc(x, z, event.getPlayer().getWorld());
             if (zone != null) {
 
-                this.parent.universe.setPlayerLastChunkX(event.getPlayer(), xchunkloc);
-                this.parent.universe.setPlayerLastChunkZ(event.getPlayer(), zchunkloc);
-                this.parent.universe.setPlayerLastChunkName(event.getPlayer(), zone.name);
+                this.universe.setPlayerLastChunkX(event.getPlayer(), xchunkloc);
+                this.universe.setPlayerLastChunkZ(event.getPlayer(), zchunkloc);
+                this.universe.setPlayerLastChunkName(event.getPlayer(), zone.name);
 
             } else {
                 // dont provide them info, just update them
-                this.parent.universe.setPlayerLastChunkX(event.getPlayer(), xchunkloc);
-                this.parent.universe.setPlayerLastChunkZ(event.getPlayer(), zchunkloc);
-                this.parent.universe.setPlayerLastChunkName(event.getPlayer(), "Unknown Zone");
+                this.universe.setPlayerLastChunkX(event.getPlayer(), xchunkloc);
+                this.universe.setPlayerLastChunkZ(event.getPlayer(), zchunkloc);
+                this.universe.setPlayerLastChunkName(event.getPlayer(), "Unknown Zone");
 
             }
 
@@ -362,7 +368,7 @@ public class npcxPListener implements Listener {
 
     public void onPlayerChat(PlayerChatEvent event) {
         if (event.isCancelled()) { return; }
-        for (myPlayer player : parent.universe.players.values()) {
+        for (myPlayer player : this.universe.players.values()) {
             if (player.player == event.getPlayer()) {
                 if (player.target != null) {
 
@@ -400,7 +406,7 @@ public class npcxPListener implements Listener {
 
     public void onPlayerRespawn(PlayerRespawnEvent event) {
 
-        for (myPlayer player : parent.universe.players.values()) {
+        for (myPlayer player : this.universe.players.values()) {
             if (player.player == event.getPlayer()) {
 
                 player.respawned = true;
@@ -411,7 +417,7 @@ public class npcxPListener implements Listener {
 
     public void onPlayerQuit(PlayerQuitEvent event) {
 
-        for (myPlayer player : parent.universe.players.values()) {
+        for (myPlayer player : this.universe.players.values()) {
             if (player.player == event.getPlayer()) {
 
                 player.dead = true;
@@ -421,7 +427,7 @@ public class npcxPListener implements Listener {
                 // System.out.println("npcx : removed player ("+
                 // player.player.getName()+")");
                 // not needed
-                // parent.universe.players.remove(player);
+                // this.universe.players.remove(player);
             }
         }
 

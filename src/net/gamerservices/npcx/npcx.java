@@ -14,6 +14,11 @@ import java.util.Timer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.cevo.npcx.events.BlockListener;
+import com.cevo.npcx.events.EntityListener;
+import com.cevo.npcx.events.PlayerListener;
+import com.cevo.npcx.events.ServerListener;
+import com.cevo.npcx.events.WorldListener;
 import com.cevo.npcx.handlers.CommandHandler;
 import com.cevo.npcx.security.Security;
 import com.cevo.npcx.universe.Universe;
@@ -23,16 +28,16 @@ public class npcx extends JavaPlugin {
 
     private final Logger logger = Logger.getLogger("Minecraft");
     
-    private npcxEListener mEntityListener;
-    private npcxPListener mPlayerListener;
-    private npcxWListener mWorldListener;
-    private npcxBListener mBlockListener;
-    private npcxSListener mServerListener;
+    private EntityListener mEntityListener;
+    private PlayerListener mPlayerListener;
+    private WorldListener mWorldListener;
+    private BlockListener mBlockListener;
+    private ServerListener mServerListener;
     private Universe universe;
     private Security security;
     
     private iConomy iconomy = null;
-    boolean useiConomy;
+    public boolean useiConomy;
     private Server server = null;
 
     public BasicHumanNpcList npclist = new BasicHumanNpcList();
@@ -78,11 +83,11 @@ public class npcx extends JavaPlugin {
             
             PluginManager pm = this.server.getPluginManager();
 
-            mEntityListener = new npcxEListener(this);
+            mEntityListener = new EntityListener(this);
             mPlayerListener = new npcxPListener(this);
-            mWorldListener = new npcxWListener(this);
-            mBlockListener = new npcxBListener(this);
-            mServerListener = new npcxSListener(this);            
+            mWorldListener = new WorldListener(this);
+            mBlockListener = new BlockListener(this);
+            mServerListener = new ServerListener(this);            
             
             pm.registerEvents(mWorldListener,this);
             pm.registerEvents(mPlayerListener,this);

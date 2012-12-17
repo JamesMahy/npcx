@@ -1,6 +1,9 @@
-package net.gamerservices.npcx;
+package com.cevo.npcx.events;
 
 import java.util.HashMap;
+
+import net.gamerservices.npcx.myNPC;
+import net.gamerservices.npcx.npcx;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -10,12 +13,13 @@ import org.bukkit.event.world.ChunkUnloadEvent;
 
 // Citizens Mod: http://forums.bukkit.org/threads/7173/
 
-public class npcxWListener implements Listener {
+public class WorldListener implements Listener {
     private npcx parent;
+    private Universe universe;
     
-    
-    public npcxWListener(npcx parent) {
+    public WorldListener(npcx parent) {
         this.parent = parent;
+        this.universe = this.parent.getUniverse();
     }
 
     @EventHandler
@@ -23,8 +27,8 @@ public class npcxWListener implements Listener {
         parent.deregisterChunk(e.getChunk());
         try {
             // System.out.println("debug : closing chunk " + e.getChunk());
-            for (myNPC npc : parent.universe.npcs.values()) {
-                if (parent.universe.npcs != null) {
+            for (myNPC npc : this.universe.npcs.values()) {
+                if (this.universe.npcs != null) {
                     if (npc.npc != null) {
                         if (e.getChunk().getWorld().getChunkAt(npc.npc.getBukkitEntity().getLocation()).equals(e.getChunk())) {
                             npc.npc.chunkinactive(npc.npc.getBukkitEntity().getLocation());
@@ -44,8 +48,8 @@ public class npcxWListener implements Listener {
         parent.registerChunk(e.getChunk());
         try {
             // System.out.println("debug : loading chunk " + e.getChunk());
-            for (myNPC npc : parent.universe.npcs.values()) {
-                if (parent.universe.npcs != null) {
+            for (myNPC npc : this.universe.npcs.values()) {
+                if (this.universe.npcs != null) {
                     if (npc.npc != null) {
                         if (e.getChunk().getWorld().getChunkAt(npc.npc.getBukkitEntity().getLocation()).equals(e.getChunk())) {
                             npc.npc.chunkactive(npc.npc.getBukkitEntity().getLocation());

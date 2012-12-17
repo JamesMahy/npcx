@@ -878,7 +878,7 @@ public class myNPC {
     private String variablise(String response, Player player) {
         // TODO Auto-generated method stub
 
-        myPlayer mp = this.parent.universe.getmyPlayer(player);
+        myPlayer mp = this.universe.getmyPlayer(player);
 
         Double balance = 0.00;
         if (mp != null) {
@@ -971,7 +971,7 @@ public class myNPC {
 
     public void onRightClick(Player p) {
         // TODO Auto-generated method stub
-        myPlayer player = this.parent.universe.getmyPlayer(p);
+        myPlayer player = this.universe.getmyPlayer(p);
 
         if (player != null) {
             if (player.player == p) {
@@ -1063,7 +1063,7 @@ public class myNPC {
     public void onClosestPlayer(Player p) {
         // TODO Auto-generated method stub
 
-        if (this.parent.universe.isLivingEntityAnNPC(p)) {
+        if (this.universe.isLivingEntityAnNPC(p)) {
             // ignroe other npcs
             return;
         }
@@ -1075,7 +1075,7 @@ public class myNPC {
                 if (tw.word.toLowerCase().contains("event_close")) {
                     String send = variablise(tw.response, p);
 
-                    for (myPlayer player : this.parent.universe.players.values()) {
+                    for (myPlayer player : this.universe.players.values()) {
                         if (p == player.player) {
                             onPlayerChat(player, "event_close", "");
 
@@ -1104,7 +1104,7 @@ public class myNPC {
         // TODO Auto-generated method stub
         // TODO Auto-generated method stub
 
-        if (this.parent.universe.isLivingEntityAnNPC(p)) {
+        if (this.universe.isLivingEntityAnNPC(p)) {
             // ignroe other npcs
             return;
         }
@@ -1115,7 +1115,7 @@ public class myNPC {
             if (tw.word.toLowerCase().contains("event_bounce")) {
                 String send = variablise(tw.response, p);
 
-                for (myPlayer player : this.parent.universe.players.values()) {
+                for (myPlayer player : this.universe.players.values()) {
                     if (p == player.player) {
                         onPlayerChat(player, "event_bounce", "");
 
@@ -1137,7 +1137,7 @@ public class myNPC {
     public void onDeathFromPlayer(LivingEntity p) {
         // TODO Auto-generated method stub
 
-        if (this.parent.universe.isLivingEntityAnNPC(p)) {
+        if (this.universe.isLivingEntityAnNPC(p)) {
             // Killed by an npc
             return;
         }
@@ -1151,7 +1151,7 @@ public class myNPC {
                 if (tw.word.toLowerCase().contains("event_death")) {
                     String send = variablise(tw.response, (Player) p);
 
-                    for (myPlayer player : this.parent.universe.players.values()) {
+                    for (myPlayer player : this.universe.players.values()) {
                         if (p == player.player) {
                             say(player, send + "'");
                         }
@@ -1168,9 +1168,9 @@ public class myNPC {
 
             if (this.faction != null) {
                 try {
-                    myPlayer player = this.parent.universe.findmyPlayer(((Player) p));
+                    myPlayer player = this.universe.findmyPlayer(((Player) p));
 
-                    this.parent.universe.giveFactionHit(player, this.faction, this);
+                    this.universe.giveFactionHit(player, this.faction, this);
 
                 } catch (NullPointerException e) {}
             }
@@ -1182,7 +1182,7 @@ public class myNPC {
     public void onKilled(LivingEntity ent) {
         // TODO Auto-generated method stub
 
-        if (this.parent.universe.isLivingEntityAnNPC(ent)) {
+        if (this.universe.isLivingEntityAnNPC(ent)) {
             // dont want to generate stuff for player npcs atm
             return;
         }
@@ -1196,7 +1196,7 @@ public class myNPC {
                 if (tw.word.toLowerCase().contains("event_killed")) {
                     String send = variablise(tw.response, (Player) ent);
 
-                    for (myPlayer player : this.parent.universe.players.values()) {
+                    for (myPlayer player : this.universe.players.values()) {
                         if (ent == player.player) {
                             say(player, send);
                         }
