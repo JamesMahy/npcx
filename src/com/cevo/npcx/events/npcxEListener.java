@@ -1,4 +1,4 @@
-package net.gamerservices.npcx;
+package com.cevo.npcx.events;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -6,6 +6,7 @@ import org.bukkit.event.Listener;
 import net.gamerservices.npclibfork.BasicHumanNpc;
 import net.gamerservices.npclibfork.NpcEntityTargetEvent;
 import net.gamerservices.npclibfork.NpcEntityTargetEvent.NpcTargetReason;
+import net.gamerservices.npcx.npcx;
 
 
 import org.bukkit.event.entity.*;

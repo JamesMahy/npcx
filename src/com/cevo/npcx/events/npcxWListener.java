@@ -1,6 +1,9 @@
-package net.gamerservices.npcx;
+package com.cevo.npcx.events;
 
 import java.util.HashMap;
+
+import net.gamerservices.npcx.myNPC;
+import net.gamerservices.npcx.npcx;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

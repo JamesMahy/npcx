@@ -1,4 +1,6 @@
-package net.gamerservices.npcx;
+package com.cevo.npcx.events;
+
+import net.gamerservices.npcx.npcx;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

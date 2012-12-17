@@ -1,6 +1,10 @@
-package net.gamerservices.npcx;
+package com.cevo.npcx.events;
 
 
+
+import net.gamerservices.npcx.myPlayer;
+import net.gamerservices.npcx.myZone;
+import net.gamerservices.npcx.npcx;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Chunk;
