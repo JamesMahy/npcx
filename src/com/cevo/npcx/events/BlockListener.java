@@ -9,15 +9,17 @@ import org.bukkit.event.block.BlockIgniteEvent;
 
 public class BlockListener implements Listener {
     private npcx parent;
+    private Universe universe;
 
     public BlockListener(npcx parent) {
         this.parent = parent;
+        this.universe = this.parent.getUniverse();
     }
     
     @EventHandler
     public void onBlockIgnite(BlockIgniteEvent event) {
         if (event.isCancelled()) { return; }
-        if (this.parent.universe.nospread.equals("true")) {
+        if (this.universe.nospread.equals("true")) {
 
             String cause = event.getCause().toString();
             if (cause.equals("SPREAD")) {

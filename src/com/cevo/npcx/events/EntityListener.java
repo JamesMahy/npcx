@@ -18,9 +18,11 @@ import org.bukkit.entity.HumanEntity;
 public class EntityListener implements Listener {
 
     private final npcx parent;
+    private Universe universe;
 
     public EntityListener(npcx parent) {
         this.parent = parent;
+        this.universe = this.parent.getUniverse();
     }
 
     @EventHandler
@@ -43,7 +45,7 @@ public class EntityListener implements Listener {
         if (event.getEntity() instanceof Monster) {
 
             // System.out.println("npcx : deregistered monster");
-            this.parent.universe.monsters.remove((Monster) event.getEntity());
+            this.universe.monsters.remove((Monster) event.getEntity());
 
         }
     }
@@ -56,12 +58,12 @@ public class EntityListener implements Listener {
 
             // System.out.println("npcx : deregistered monster");
 
-            this.parent.universe.monsters.remove((Monster) event.getEntity());
+            this.universe.monsters.remove((Monster) event.getEntity());
 
         }
-        if (this.parent.universe.nocreeper != null) {
+        if (this.universe.nocreeper != null) {
             // creeper protection is on
-            if (this.parent.universe.nocreeper.matches("true")) {
+            if (this.universe.nocreeper.matches("true")) {
                 // creeper events are bad
                 event.setCancelled(true);
             }
@@ -74,7 +76,7 @@ public class EntityListener implements Listener {
         if (event.isCancelled()) { return; }
         if (event.getEntity() instanceof Monster) {
             // System.out.println("npcx : registered monster");
-            this.parent.universe.monsters.add((Monster) event.getEntity());
+            this.universe.monsters.add((Monster) event.getEntity());
         }
     }
 

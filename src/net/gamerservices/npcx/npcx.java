@@ -37,7 +37,7 @@ public class npcx extends JavaPlugin {
     private Security security;
     
     private iConomy iconomy = null;
-    boolean useiConomy;
+    public boolean useiConomy;
     private Server server = null;
 
     public BasicHumanNpcList npclist = new BasicHumanNpcList();

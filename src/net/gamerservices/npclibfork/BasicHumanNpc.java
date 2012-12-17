@@ -133,7 +133,7 @@ public class BasicHumanNpc extends BasicNpc {
                 //
                 // PLAYER TARGET DISTANCE
                 //
-                for (myPlayer p : this.parent.parent.universe.players.values()) {
+                for (myPlayer p : this.parent.this.universe.players.values()) {
                     if (p.target == this) {
                         double x1 = p.player.getLocation().getX();
                         double y1 = p.player.getLocation().getY();
@@ -693,7 +693,7 @@ public class BasicHumanNpc extends BasicNpc {
                         this.onKilled(ent);
 
                         // mark player dead
-                        for (myPlayer player : this.parent.parent.universe.players.values()) {
+                        for (myPlayer player : this.parent.this.universe.players.values()) {
                             // deal with player death changes
                             if (player.player == ent) {
                                 // System.out.println("npcx : player about to respawn, assigning them to the dead list");
@@ -851,7 +851,7 @@ public class BasicHumanNpc extends BasicNpc {
 
                 Entity p = edee.getDamager();
                 if (this.parent != null) {
-                    for (myPlayer player : this.parent.parent.universe.players.values()) {
+                    for (myPlayer player : this.parent.this.universe.players.values()) {
                         if (player.player == edee.getDamager()) {
                             if (this.getAggro() == null) {
                                 // First time sent an event
@@ -890,7 +890,7 @@ public class BasicHumanNpc extends BasicNpc {
 
     public void despawn() {
 
-        for (myPlayer player : this.parent.parent.universe.players.values()) {
+        for (myPlayer player : this.parent.this.universe.players.values()) {
             if (player.target == this) {
                 player.target = null;
 

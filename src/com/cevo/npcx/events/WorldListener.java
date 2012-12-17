@@ -15,10 +15,11 @@ import org.bukkit.event.world.ChunkUnloadEvent;
 
 public class WorldListener implements Listener {
     private npcx parent;
-    
+    private Universe universe;
     
     public WorldListener(npcx parent) {
         this.parent = parent;
+        this.universe = this.parent.getUniverse();
     }
 
     @EventHandler
@@ -26,8 +27,8 @@ public class WorldListener implements Listener {
         parent.deregisterChunk(e.getChunk());
         try {
             // System.out.println("debug : closing chunk " + e.getChunk());
-            for (myNPC npc : parent.universe.npcs.values()) {
-                if (parent.universe.npcs != null) {
+            for (myNPC npc : this.universe.npcs.values()) {
+                if (this.universe.npcs != null) {
                     if (npc.npc != null) {
                         if (e.getChunk().getWorld().getChunkAt(npc.npc.getBukkitEntity().getLocation()).equals(e.getChunk())) {
                             npc.npc.chunkinactive(npc.npc.getBukkitEntity().getLocation());
@@ -47,8 +48,8 @@ public class WorldListener implements Listener {
         parent.registerChunk(e.getChunk());
         try {
             // System.out.println("debug : loading chunk " + e.getChunk());
-            for (myNPC npc : parent.universe.npcs.values()) {
-                if (parent.universe.npcs != null) {
+            for (myNPC npc : this.universe.npcs.values()) {
+                if (this.universe.npcs != null) {
                     if (npc.npc != null) {
                         if (e.getChunk().getWorld().getChunkAt(npc.npc.getBukkitEntity().getLocation()).equals(e.getChunk())) {
                             npc.npc.chunkactive(npc.npc.getBukkitEntity().getLocation());

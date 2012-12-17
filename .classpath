@@ -2,8 +2,8 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="C:/Users/User/workspace/npcx/lib/craftbukkit-1.2.5-R5.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/User/workspace/npcx/lib/iConomy.jar"/>
-	<classpathentry kind="lib" path="C:/Users/User/workspace/npcx/lib/PermissionsBukkit-2.0.jar"/>
+	<classpathentry kind="lib" path="/home/james/workspace/npcx/lib/craftbukkit-1.2.5-R5.0.jar"/>
+	<classpathentry kind="lib" path="/home/james/workspace/npcx/lib/iConomy.jar"/>
+	<classpathentry kind="lib" path="/home/james/workspace/npcx/lib/PermissionsBukkit-2.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
