@@ -15,11 +15,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.HumanEntity;
 
 
-public class npcxEListener implements Listener {
+public class EntityListener implements Listener {
 
     private final npcx parent;
 
-    public npcxEListener(npcx parent) {
+    public EntityListener(npcx parent) {
         this.parent = parent;
     }
 

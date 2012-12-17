@@ -7,10 +7,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockIgniteEvent;
 
 
-public class npcxBListener implements Listener {
+public class BlockListener implements Listener {
     private npcx parent;
 
-    public npcxBListener(npcx parent) {
+    public BlockListener(npcx parent) {
         this.parent = parent;
     }
     

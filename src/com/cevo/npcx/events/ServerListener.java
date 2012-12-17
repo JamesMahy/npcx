@@ -11,10 +11,10 @@ import org.bukkit.plugin.Plugin;
 
 import com.iCo6.*;
 
-public class npcxSListener implements Listener {
+public class ServerListener implements Listener {
     private npcx parent;
 
-    public npcxSListener(npcx parent) {
+    public ServerListener(npcx parent) {
         this.parent = parent;
     }
 

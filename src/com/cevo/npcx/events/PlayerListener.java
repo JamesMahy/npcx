@@ -23,11 +23,11 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
-public class npcxPListener implements Listener {
+public class PlayerListener implements Listener {
 
     private final npcx parent;
 
-    public npcxPListener(npcx parent) {
+    public PlayerListener(npcx parent) {
         this.parent = parent;
     }
 

@@ -13,11 +13,11 @@ import org.bukkit.event.world.ChunkUnloadEvent;
 
 // Citizens Mod: http://forums.bukkit.org/threads/7173/
 
-public class npcxWListener implements Listener {
+public class WorldListener implements Listener {
     private npcx parent;
     
     
-    public npcxWListener(npcx parent) {
+    public WorldListener(npcx parent) {
         this.parent = parent;
     }
 
